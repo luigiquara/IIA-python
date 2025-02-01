@@ -63,11 +63,18 @@ class Node:
         else:
             return 1 + len(self.parent)
 
+    # Metodo necessario per poter confrontare due nodi
+    # Dati due nodi A e B, allora A < B se la somma dei costi delle azioni eseguite per arrivare ad A è minore di quella di B
+    def __lt__(self, other_node):
+        return self.path_cost < other_node.path_cost
+
     # Restituisce la lista delle azioni compiute per arrivare al nodo corrente
     # Se il nodo corrente non ha nodo padre, i.e. self.parent is None, nessuna azione è stata ancora eseguita
     def path_actions(self):
-        if self.parent is None: actions = []
-        else: return self.parent.path_actions().append(self.action)
+        if self.parent is None:
+           actions = []
+           return actions
+        else: return self.parent.path_actions() + [self.action]
 
     # Restituisce la lista degli stati attraversati per arrivare al nodo corrente
     # Se il node corrente non ha nodo padre, i.e. self.parent is None, la lista degli stati corrisponde allo stato attuale
