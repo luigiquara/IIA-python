@@ -31,13 +31,18 @@ def best_first_search(problem, f):
                 frontier.insert(child)
     return None # in questo caso ritorna fallimento
 
-# Restituisce True se il nodo 'node' forma un cammino ciclico di lunghezza 'k' o minore
+# Restituisce True se il nodo 'node' forma un cammino ciclico di lunghezza k o minore
 def is_cycle(node, k=30):
-    # implementazione ricorsiva
-    def find_cycle(ancestor, k):
-        return (ancestor is not None and k > 0 and
-                (ancestor.state == node.state or find_cycle(ancestor.parent, k - 1)))
-    return find_cycle(node.parent, k)
+    ancestor = node.parent
+    steps = 0
+
+    while ancestor is not None and steps < k:
+        if ancestor.state == node.state:
+            return True  # Abbiamo trovato un ciclo
+        ancestor = ancestor.parent
+        steps += 1
+
+    return False
 
 def best_first_search_tree(problem, f):
     # ricerca best-first su albero - non mantiene la collezione 'explored'
@@ -51,7 +56,8 @@ def best_first_search_tree(problem, f):
         # seleziona il nodo per l'espansione
         node = frontier.pop()
         # controlla se il nodo è uno stato obiettivo
-        if problem.is_goal(node.state): return node
+        if problem.is_goal(node.state):
+            return node
 
         # se non è uno stato obiettivo, il nodo viene espando per aggiornare la frontiera
         for child in node.expand(problem):
