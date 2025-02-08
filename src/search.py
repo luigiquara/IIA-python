@@ -76,7 +76,7 @@ def depth_first_search(problem):
     # La funzione di valutazione è l'opposto della lunghezza -> vengono esaminati prima i nodi a profondità maggiore
     return best_first_search(problem, f=lambda n: -len(n))
 
-def depth_first_recursive_search(problem, node):
+def depth_first_recursive_search(problem, node=None):
     # Ricerca in profondità ricorsiva
     if node is None:
         node = Node(problem.initial_state)
@@ -102,15 +102,18 @@ def depth_limited_search(problem, depth_limit):
 
     # finchè la frontiera non è vuota
     while frontier:
+        print(frontier)
         node = frontier.pop() # estrae un nodo dalla frontiera
         # controlla se lo stato del nodo è uno stato obiettivo
         if problem.is_goal(node.state):
             return node
         # controlla se si è superato il limite di profondità
         elif len(node) >= depth_limit:
+            print('limit')
             return None
         # controlla se si è in un cammino ciclico
         elif is_cycle(node):
+            print('cycle')
             return None
 
         # altrimenti, espandi la frontiera
@@ -118,7 +121,7 @@ def depth_limited_search(problem, depth_limit):
             for child in node.expand(problem):
                 frontier.append(child)
 
-def depth_recursive_limited_search(problem, node, depth_limit):
+def depth_recursive_limited_search(problem, node=None, depth_limit=100):
     """Ricerca in profondità ricorsiva con depth_limit"""
 
     if node is None:
