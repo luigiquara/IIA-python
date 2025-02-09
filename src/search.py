@@ -102,24 +102,24 @@ def depth_limited_search(problem, depth_limit):
 
     # finchè la frontiera non è vuota
     while frontier:
-        print(frontier)
         node = frontier.pop() # estrae un nodo dalla frontiera
         # controlla se lo stato del nodo è uno stato obiettivo
         if problem.is_goal(node.state):
             return node
         # controlla se si è superato il limite di profondità
-        elif len(node) >= depth_limit:
-            print('limit')
-            return None
+        elif len(node) > depth_limit:
+            continue
+            #return None
         # controlla se si è in un cammino ciclico
         elif is_cycle(node):
-            print('cycle')
-            return None
+            continue
 
         # altrimenti, espandi la frontiera
         else:
             for child in node.expand(problem):
                 frontier.append(child)
+
+    return None # in questo caso ritorna con fallimento
 
 def depth_recursive_limited_search(problem, node=None, depth_limit=100):
     """Ricerca in profondità ricorsiva con depth_limit"""
