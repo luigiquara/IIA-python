@@ -62,8 +62,9 @@ def best_first_search_tree(problem, f):
         # se non è uno stato obiettivo, il nodo viene espando per aggiornare la frontiera
         for child in node.expand(problem):
             # non vengono aggiunti alla frontiera i nodi che formano cammini ciclici
-            if not is_cycle(child):
-                frontier.insert(child)
+            #if not is_cycle(child):
+                #frontier.insert(child)
+            frontier.insert(child)
     return None # in questo caso ritorna fallimento
 
 def breadth_first_search(problem):
@@ -75,6 +76,9 @@ def depth_first_search(problem):
     # Ricerca-grafo in profondità
     # La funzione di valutazione è l'opposto della lunghezza -> vengono esaminati prima i nodi a profondità maggiore
     return best_first_search(problem, f=lambda n: -len(n))
+
+def depth_first_search_tree(problem):
+    return best_first_search_tree(problem, f=lambda n: -len(n))
 
 def depth_first_recursive_search(problem, node=None):
     # Ricerca in profondità ricorsiva
