@@ -107,10 +107,10 @@ class PriorityQueue:
     # Inserisce l'elemento item in ordine nella coda
     # utilizzando la funzione di libreria heappush
     def insert(self, item):
-        pair = (item, self.f(item))
+        pair = (self.f(item), item)
         heapq.heappush(self.elements, pair)
 
     # Estrae l'elemento con il valore f(e) minore
     # utilizzando la funzione di libreria heappop
     def pop(self):
-        return heapq.heappop(self.elements)[0] # restituisce solo l'elemento, non la priorità
+        return heapq.heappop(self.elements)[1] # restituisce solo l'elemento, non la priorità
