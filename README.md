@@ -10,8 +10,8 @@ Il repository è strutturato come segue:
 ```
 ├── src/
 │   ├── utils.py                 # Classi di supporto per nodi e problemi
-│   ├── search.py                # Algoritmi di ricerca (BFS, DFS, Best-First Search, ecc.)
-│   ├── local_search.py          # Algoritmi di ricerca locale (Hill Climbing, Simulated Annealing)
+│   ├── search.py                # Implementazione degli algoritmi di ricerca
+│   └── local_search.py          # Implementazione degli algoritmi di ricerca locale
 ├── esempi_ricerca.ipynb         # Notebook con esempi di utilizzo degli algoritmi di ricerca
 ├── esempi_ricerca_locale.ipynb  # Notebook con esempi di utilizzo degli algoritmi di ricerca locale
 └── README.md                    # Questo file
