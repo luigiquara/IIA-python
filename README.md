@@ -26,7 +26,8 @@ Contiene le classi fondamentali per rappresentare un problema di ricerca:
 Contiene l'implementazione degli algoritmi di ricerca visti a lezione:
 + ```Best-First Search```: algoritmo di ricerca generico, che utilizza una funzione di valutazione per l'espansione dei nodi. Viene utilizzato da tutti gli altri algoritmi, ognuno con una diversa funzione di valutazione
 + ```Breadth-First Search```: ricerca in ampiezza - utilizza la profondità dei nodi come funzione di valutazione
-+ ```Depth-First Search```: ricerca in profondità - utilizza l'opposto della profondità dei nodi come funzione di valutazione. Sono implementate anche la ricerca a profondità limitata, ricerca ad approfondimento iterativo, ricerca limitata ad approfondimento iterativo
++ ```Depth-First Search```: ricerca in profondità - utilizza l'opposto della profondità dei nodi come funzione di valutazione. Viene implementata anche la versione ricorsiva dell'algoritmo
++ ```Limited Depth Search```: ricerca in profondità limitata - come la ricerca in profondità ma con un limite, per evitare cicli infiniti. Viene implementata anche la versione ricorsiva dell'algoritmo
 + ```Uniform Cost Search```: ricerca a costo uniforme - utilizza il costo del cammino come funzione di valutazione
 + ```A*```: ricerca A* - utilizza il costo del cammino e una funzione euristica come funzione di valutazione
 
