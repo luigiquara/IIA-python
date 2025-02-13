@@ -1,9 +1,12 @@
+import math
 import random
 import sys
 
+from utils import Node
+
 def hill_climbing(problem):
     # Ricerca locale hill climbing
-    current = problem.initial_state
+    current = Node(problem.initial_state)
 
     while True:
         # Il metodo expand restituisce tutti i vicini di un nodo, uno alla volta
@@ -13,9 +16,9 @@ def hill_climbing(problem):
             break
 
         # Seleziona il vicino con il valore più alto
-        highest_neighbor = sorted(neighbors, key=lambda x: x.state, reverse=True)[0]
+        highest_neighbor = sorted(neighbors, key=lambda x: problem.value(x), reverse=True)[0]
         # Se il vicino maggiore ha comunque un valore minore del nodo corrente, interrompe l'esecuzione
-        if highest_neighbor.state <= current.state:
+        if problem.value(highest_neighbor) <= problem.value(current):
             break
         else:
             current = highest_neighbor
@@ -31,7 +34,7 @@ def simulated_annealing(problem, schedule=exp_schedule()):
     # Ricerca locale simulated annealing
     # L'algoritmo richiede una funzione di scheduling
     # per determinare l'andamento della temperatura
-    current = problem.initial_state
+    current = Node(problem.initial_state)
 
     for t in range(sys.maxsize): #sys.maxsize è il massimo numero intero
         temp = schedule(t)
@@ -43,6 +46,6 @@ def simulated_annealing(problem, schedule=exp_schedule()):
 
         # il nodo successivo è scelto casualmente tra i vicini di quello corrente
         next = random.choice(neighbors)
-        delta_e = next.state - current.state
+        delta_e = problem.value(next) - problem.value(current)
         if delta_e > 0 or random.random()<(math.exp(delta_e / temp)):
             current = next
