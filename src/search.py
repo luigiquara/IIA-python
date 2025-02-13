@@ -150,7 +150,7 @@ def depth_recursive_limited_search(problem, node=None, depth_limit=100):
 def g(n): return n.path_cost
 
 def uniform_cost_search(problem):
-    # Ricerca-grafo uniform_cost
+    # Ricerca-grafo a costo uniforme
     # La funzione di valutazione dipende dal path_cost -> vengono esaminati prima i nodi a costo minore
     return best_first_search(problem, f=g)
 
