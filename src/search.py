@@ -9,10 +9,10 @@ def best_first_search(problema, f):
     # ricerca best_first su grafo
     # la ricerca best_first utilizza una coda con priorità come frontiera
     # la coda viene inizializzata inserendo il primo nodo del problema
-    nodo = Node(problem.initial_state)
+    nodo = Node(problema.initial_state)
     frontiera = PriorityQueue(f=f)
     frontiera.insert(nodo)
-    raggiunti = {problem.initial_state: nodo} # insieme degli stati già visitati
+    raggiunti = {problema.initial_state: nodo} # insieme degli stati già visitati
 
     while frontiera: # finchè ci sono nodi nella frontiera
         # seleziona il nodo per l'espansione
