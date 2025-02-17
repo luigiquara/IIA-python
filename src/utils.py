@@ -82,7 +82,7 @@ class Node:
         if self.parent is None:
             stases = self.state
             return states
-        else return self.parent.path_states() + [self.state]
+        else: return self.parent.path_states() + [self.state]
 
     # Funzione che espande un nodo, generando tutti i nodi figli
     # La keyword "yield" permette di creare un generatore, che restituisce un nodo figlio alla volta
