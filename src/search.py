@@ -5,7 +5,7 @@ LIFOQueue = list
 # best_first_search è l'algoritmo di ricerca più generale,
 # viene scelto il nodo con il valore minimo di una funzione di valutazione f.
 # Variando la funzione di valutazione si ottengono diversi algoritmi di ricerca.
-def best_first_search(problem, f):
+def best_first_search(problema, f):
     # ricerca best_first su grafo
     # la ricerca best_first utilizza una coda con priorità come frontiera
     # la coda viene inizializzata inserendo il primo nodo del problema
