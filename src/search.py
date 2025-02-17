@@ -11,7 +11,7 @@ def best_first_search(problem, f):
     # la coda viene inizializzata inserendo il primo nodo del problema
     nodo = Node(problem.initial_state)
     frontiera = PriorityQueue(f=f)
-    frontiera.insert(node)
+    frontiera.insert(nodo)
     raggiunti = {problem.initial_state: nodo} # insieme degli stati già visitati
 
     while frontiera: # finchè ci sono nodi nella frontiera
