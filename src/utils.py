@@ -80,7 +80,7 @@ class Node:
     # Se il node corrente non ha nodo padre, i.e. self.parent is None, la lista degli stati corrisponde allo stato attuale
     def path_states(self):
         if self.parent is None:
-            stases = self.state
+            states = self.state
             return states
         else: return self.parent.path_states() + [self.state]
 
