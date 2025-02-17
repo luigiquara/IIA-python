@@ -33,14 +33,14 @@ def best_first_search(problema, f):
 
 # Restituisce True se il nodo 'node' forma un cammino ciclico di lunghezza k o minore
 def is_cycle(nodo, k=30):
-    nodo_padre = node.parent
-    steps = 0
+    nodo_padre = nodo.parent
+    n_passi = 0
 
-    while nodo_padre is not None and steps < k:
+    while nodo_padre is not None and n_passi < k:
         if nodo_padre.state == nodo.state:
             return True  # Abbiamo trovato un ciclo
         nodo_padre = nodo_padre.parent
-        steps += 1
+        n_passi += 1
 
     return False
 
