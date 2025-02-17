@@ -102,7 +102,7 @@ def depth_first_recursive_search(problema, nodo=None):
 
 def depth_limited_search(problema, depth_limit):
     """Ricerca a profondità limitata"""
-    frontiera = LIFOQueue([Node(problem.initial_state)])
+    frontiera = LIFOQueue([Node(problema.initial_state)])
 
     # finchè la frontiera non è vuota
     while frontiera:
