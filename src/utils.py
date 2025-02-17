@@ -79,8 +79,10 @@ class Node:
     # Restituisce la lista degli stati attraversati per arrivare al nodo corrente
     # Se il node corrente non ha nodo padre, i.e. self.parent is None, la lista degli stati corrisponde allo stato attuale
     def path_states(self):
-        if self.parent is None: states = self.state
-        else: return self.parent.path_states().append(self.state)
+        if self.parent is None:
+            stases = self.state
+            return states
+        else return self.parent.path_states() + [self.state]
 
     # Funzione che espande un nodo, generando tutti i nodi figli
     # La keyword "yield" permette di creare un generatore, che restituisce un nodo figlio alla volta
