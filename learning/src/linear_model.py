@@ -13,9 +13,26 @@ class LinearModel:
         self.learning_rate = learning_rate
         self.epochs = epochs
 
-        # inizializzazione dei pesi del modello
-        # in modo casuale da una distribuzione uniforme tra -0.5 e 0.5
-        self.w = [random.uniform(-0.5, 0.5) for _ in range(len(dataset.inputs) + 1)]
+        # idx_i è una lista degli indici nei dati di ogni esempio
+        # come [0,1,2,3] o [2,5,7]
+        self.idx_i = dataset.inputs # indici delle variabili di input
+
+        # indici della variabile usata per target
+        # la variabile target è chiamata 'y' a lezione
+        self.idx_t = dataset.target
+
+        # ogni esempio corrisponde a una lista contenente sia le variabili
+        # di input sia il target
+        self.examples = dataset.examples # lista di tutti gli esempi
+        
+        # numero di esempi nel dataset
+        # l a lezione
+        self.num_examples = len(examples)
+        self.input_dim = len(idx_i) # dimensione dell'input (n a lezione)
+
+        # inizializzazione dei pesi del modello in modo casuale
+        # da una distribuzione uniforme tra -0.5 e 0.5
+        self.w = [random.uniform(-0.5, 0.5) for _ in range(len(idx_i) + 1)]
 
     def fit(self):
         '''
@@ -30,13 +47,14 @@ class LinearModel:
             inputs = []
 
             # considera tutti gli esempi 
-            for example in self.dataset.examples:
+            for example in self.examples:
                 # lista locali dei valori delle variabili in input
-                x = [example[i] for i in dataset.inputs]
-                inputs.append(x)
+                # viene aggiunto l'input bias unitario
+                x = [1] + [example[i] for i in self.idx_i]
+                inputs.append(x) # aggiunge l'esempio attuale alla lista
 
                 y_pred = self.dot_product(self.w, x) # calcola l'output del modello
-                y = example[dataset.target] # il valore target
+                y = example[self.idx_t] # il valore target
                 err.append(y - y_pred) # calcola l'errore e lo salva in una lista
 
             # calcolo il DeltaW (passo 2 alg. a lezione)
@@ -44,13 +62,13 @@ class LinearModel:
                 delta_w_i = 0
 
                 # calcolo iterativo di delta_w_i
-                for p in range(num_examples):
+                for p in range(self.num_examples):
                     x_p_i = inputs[p][i] # componente i del pattern p
                     delta_w_i += err[p] * x_p_i
 
                 # si tiene in conto la costante '2', come a lezione
                 # dividiamo per il numero di esempi --> LMS
-                delta_w_i = 2 * (delta_w_i / num_examples)
+                delta_w_i = 2 * (delta_w_i / self.num_examples)
                 w[i] = w[i] + learning_rate * delta_w_i # aggiornamento del peso w_i (passo 3 alg. a lezione)
 
             # calcolo l'MSE per l'epoca corrente e lo salvo in una lista
@@ -72,4 +90,6 @@ class LinearModel:
         Calcola il prodotto scalare tra il vettore 'A' e il vettore 'B'.
         '''
 
+        # zip() è un metodo standard di python
+        # permette di iterare su più oggetti contemporaneamente
         return sum(a * b for a, b in zip(A, B))
