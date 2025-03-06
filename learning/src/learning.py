@@ -1,3 +1,5 @@
+from utils import open_data, mean_boolean_error, parse_csv, unique
+
 class DataSet:
     """ Questa classe implementa l'astrazione di un dataset per un ML task
         Ha i seguenti campi:
@@ -196,3 +198,69 @@ class DataSet:
 
     def __repr__(self):
         return '<DataSet({}): {:d} esempi, {:d} attributi>'.format(self.name, len(self.examples), len(self.attrs))
+
+
+
+def cross_validation(learner, dataset, size=None, k=10, trials=1):
+    '''
+    Funzione usata per valutare la performance del modello di apprendimento secondo uno schema di k-fold cross validation.
+    Restituisce in output la performance del learner in training e validation, mediata sulle k-fold
+    '''
+
+    k = k or len(dataset.examples)
+
+    if trials > 1:
+        trial_errs = 0
+        for t in range(trials):
+            # implementazione ricorsiva
+            errs = cross_validation(learner, dataset, size, k, trials)
+            trial_errs += errs
+        return trial_errs / trials
+
+    else:
+        fold_errs = 0
+        n = len(dataset.examples)
+        examples = dataset.examples
+        random.shuffle(dataset.examples)
+
+        for fold in range(k):
+            # crea training e validation set, in base al fold corrente
+            train_data, val_data = train_test_split(dataset, fold * (n // k), (fold + 1) * (n // k))
+            dataset.examples = train_data
+            h = learner(dataset, size)
+            fold_errs += err_ratio(h, dataset, train_data)
+            # reverting back to original once test is completed
+            dataset.examples = examples
+        return fold_errs / k
+
+def train_test_split(dataset, start=None, end=None):
+    '''
+    Funzione usata per separare gli esempi nel dataset in training e test set.
+    I parametri start ed end identificano la porzione del dataset da usare in test set. Il resto viene usato per il training set.
+    '''
+
+    examples = dataset.examples
+    train = examples[:start] + examples[end:]
+    val = examples[start:end]
+
+    return train, val
+
+def err_ratio(learner, dataset, examples=None):
+    '''
+    Calcola la proporzione di esempi che non sono correttamente predetti.
+    '''
+
+    examples = examples or dataset.examples
+    if len(examples) == 0:
+        return 0.0
+
+    right = 0
+    for example in examples:
+        desired = example[dataset.target]
+        output = learner.predict(dataset.sanitize(example))
+
+        # np.allclose restituisce True se ogni elemento dei due array coincide, con una certa tolleranza
+        if np.allclose(output, desired):
+            right += 1
+
+    return 1 - (right / len(examples))
