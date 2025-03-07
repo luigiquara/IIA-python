@@ -24,11 +24,11 @@ def hill_climbing(problema):
             nodo_corrente = vicino_maggiore
     return nodo_corrente
 
-def exp_schedule(k=100, lam=0.5, limit=100):
+def exp_schedule(k=100, lam=0.5, limite=100):
     # Una possibile funzione di scheduling per simulated annealing.
     # In questo caso, la temperatura decresce seguendo una legge esponenziale
     # k indica la temperatura iniziale
-    return lambda t: (k * math.exp(-lam * t) if t < limit else 0)
+    return lambda t: (k * math.exp(-lam * t) if t < limite else 0)
 
 def simulated_annealing(problema, schedule=exp_schedule()):
     # Ricerca locale simulated annealing

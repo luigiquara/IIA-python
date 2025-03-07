@@ -96,9 +96,9 @@ def depth_first_recursive_search(problema, nodo=None):
     # ripeti la ricerca espandendo l'albero di ricerca
     else:
         for nodo_figlio in nodo.expand(problema):
-            result = depth_first_recursive_search(problema, nodo_figlio)
-            if result:
-                return result
+            risultato = depth_first_recursive_search(problema, nodo_figlio)
+            if risultato:
+                return risultato
 
 def depth_limited_search(problema, depth_limit):
     """Ricerca a profondità limitata"""
@@ -129,7 +129,7 @@ def depth_recursive_limited_search(problema, nodo=None, depth_limit=100):
     """Ricerca a profondità limitata ricorsiva"""
 
     if nodo is None:
-        nodo = Node(problem.initial_state)
+        nodo = Node(problema.initial_state)
     # controllo per fermare la ricorsione
     if depth_limit < 0:
         return None
@@ -142,9 +142,9 @@ def depth_recursive_limited_search(problema, nodo=None, depth_limit=100):
 
     # altrimenti, continua la ricerca
     for nodo_figlio in nodo.expand(problema):
-        result = depth_recursive_limited_search(problema, nodo_figlio, depth_limit-1)
-        if result:
-            return result
+        risultato = depth_recursive_limited_search(problema, nodo_figlio, depth_limit-1)
+        if risultato:
+            return risultato
 
 # funzione di valutazione per la ricerca uniform_cost
 def g(n): return n.path_cost
