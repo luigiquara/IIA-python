@@ -1,3 +1,5 @@
+import random
+
 class LinearModel:
     def __init__(self, dataset, learning_rate=0.01, epochs=100):
         '''
@@ -27,19 +29,20 @@ class LinearModel:
         
         # numero di esempi nel dataset
         # l a lezione
-        self.num_examples = len(examples)
-        self.input_dim = len(idx_i) # dimensione dell'input (n a lezione)
+        self.num_examples = len(self.examples)
+        self.input_dim = len(self.idx_i) # dimensione dell'input (n a lezione)
 
         # inizializzazione dei pesi del modello in modo casuale
         # da una distribuzione uniforme tra -0.5 e 0.5
-        self.w = [random.uniform(-0.5, 0.5) for _ in range(len(idx_i) + 1)]
+        self.w = [random.uniform(-0.5, 0.5) for _ in range(len(self.idx_i) + 1)]
 
-    def fit(self):
+    def fit(self, examples=None):
         '''
         Funzione utilizzata per addestrare il modello lineare.
         Restituisce l'errore quadratico medio (MSE) di training al variare delle epoche.
         '''
 
+        examples = examples or self.dataset.examples
         training_error = []
 
         for epoch in range(self.epochs):
@@ -47,7 +50,7 @@ class LinearModel:
             inputs = []
 
             # considera tutti gli esempi 
-            for example in self.examples:
+            for example in examples:
                 # lista locali dei valori delle variabili in input
                 # viene aggiunto l'input bias unitario
                 x = [1] + [example[i] for i in self.idx_i]
@@ -58,7 +61,7 @@ class LinearModel:
                 err.append(y - y_pred) # calcola l'errore e lo salva in una lista
 
             # calcolo il DeltaW (passo 2 alg. a lezione)
-            for i in range(len(w)):
+            for i in range(len(self.w)):
                 delta_w_i = 0
 
                 # calcolo iterativo di delta_w_i
@@ -69,7 +72,7 @@ class LinearModel:
                 # si tiene in conto la costante '2', come a lezione
                 # dividiamo per il numero di esempi --> LMS
                 delta_w_i = 2 * (delta_w_i / self.num_examples)
-                w[i] = w[i] + learning_rate * delta_w_i # aggiornamento del peso w_i (passo 3 alg. a lezione)
+                self.w[i] = self.w[i] + self.learning_rate * delta_w_i # aggiornamento del peso w_i (passo 3 alg. a lezione)
 
             # calcolo l'MSE per l'epoca corrente e lo salvo in una lista
             epoch_mse = sum(e**2 for e in err) / len(err)
