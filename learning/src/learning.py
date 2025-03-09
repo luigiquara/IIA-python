@@ -1,3 +1,6 @@
+import numpy as np
+import random
+
 from utils import open_data, mean_boolean_error, parse_csv, unique
 
 class DataSet:
@@ -201,13 +204,14 @@ class DataSet:
 
 
 
-def cross_validation(learner, dataset, size=None, k=10, trials=1):
+def cross_validation(learner, dataset, loss, k=10, learning_rate = None, epochs = None, K = None, trials=1):
     '''
     Funzione usata per valutare la performance del modello di apprendimento secondo uno schema di k-fold cross validation.
     Restituisce in output la performance del learner in training e validation, mediata sulle k-fold
-    '''
 
-    k = k or len(dataset.examples)
+    'learning_rate' and 'epochs' are parameters for the LinearModel.
+    K is a parameter for the k-NN model.
+    '''
 
     if trials > 1:
         trial_errs = 0
@@ -217,8 +221,10 @@ def cross_validation(learner, dataset, size=None, k=10, trials=1):
             trial_errs += errs
         return trial_errs / trials
 
+    # caso base della ricorsione
     else:
-        fold_errs = 0
+        train_fold_err = 0
+        val_fold_err = 0
         n = len(dataset.examples)
         examples = dataset.examples
         random.shuffle(dataset.examples)
@@ -227,11 +233,31 @@ def cross_validation(learner, dataset, size=None, k=10, trials=1):
             # crea training e validation set, in base al fold corrente
             train_data, val_data = train_test_split(dataset, fold * (n // k), (fold + 1) * (n // k))
             dataset.examples = train_data
-            h = learner(dataset, size)
-            fold_errs += err_ratio(h, dataset, train_data)
-            # reverting back to original once test is completed
+
+            # definizione del modello
+            # se 'learning_rate' e 'epochs' sono definite
+            # allora viene utilizzato il LinearModel
+            if learning_rate and epochs:
+                model = learner(dataset, learning_rate, epochs)
+
+            # se 'K' è definito
+            # allora viene utilizzato il modello k-NN
+            elif K:
+                model = learner(dataset, K)
+
+            # altri casi 
+            else:
+                model = learner(dataset)
+
+            #train_fold_err += model.fit(train_data)
+            train_fold_err += loss(model, dataset, train_data)
+            val_fold_err += loss(model, dataset, val_data)
+
+            # gli esempi del dataset vengono ripristinati a quelli originali
+            # una volta terminato il test
             dataset.examples = examples
-        return fold_errs / k
+
+        return train_fold_err/k, val_fold_err/k
 
 def train_test_split(dataset, start=None, end=None):
     '''
@@ -244,6 +270,63 @@ def train_test_split(dataset, start=None, end=None):
     val = examples[start:end]
 
     return train, val
+
+def mse_loss(model, dataset, examples=None): 
+    """ Restituisce l'errore quadratico medio per un problema di regressione."""
+
+    examples = examples or dataset.examples
+
+    if len(examples) == 0:
+        return float("inf")
+
+    err = 0
+    for example in examples:
+        desired = example[dataset.target]
+
+        #remove nones
+        ex = dataset.sanitize(example)
+        ex_c = [x for x in ex if x is not None]
+
+        output = model.predict(ex_c)
+        err = err + (desired-output)**2
+        
+    return (err / len(examples))
+
+def accuracy_binary(model, dataset, examples=None, verbose=0):
+    """Calcola l'accuratezza di un predittore per un problema di classificazione binaria
+       (cioe' la proporzione degli esempi correttamente classificati).
+       Nota: questa funzione assume che
+        - il target e' un numero in {0,1}, dove
+          0 corrisponde alla classe negativa
+          1 corrisponde alla classe positiva
+        - l'output e' un numero reale, che viene discretizzato in {0,1}
+          usando 0.5 come valore soglia.
+
+       Il parametro verbose in input e' usato per visualizzare gli output corretti
+       e quelli errati, secondo il seguente schema:
+       verbose - 0: No output; 1: Output wrong; 2 (or greater): Output correct"""
+
+    if examples is None:
+        examples = dataset.examples
+    if len(examples) == 0:
+        return 0.0
+    right = 0.0
+    for example in examples:
+        desired = example[dataset.target]
+        output = model.predict(dataset.sanitize(example))
+        if output > 0.5:
+            output = 1
+        else:
+            output = 0
+                
+        if output == desired:
+            right += 1
+            if verbose >= 2:
+                print('   OK: got {} for {}'.format(desired, example))
+        elif verbose:
+            print('WRONG: got {}, expected {} for {}'.format(
+                output, desired, example))
+    return (right / len(examples))
 
 def err_ratio(learner, dataset, examples=None):
     '''
