@@ -28,4 +28,4 @@ Contiene l'implementazione degli algoritmi di ricerca locale visti a lezione:
 Jupyter Notebook che contiene la definizione di alcuni problemi concreti, *i.e.* ToyProblem, Labirinto di Teseo e Viaggio in Romania, e alcuni esempi di applicazione degli algoritmi di ricerca.
 
 ### ```esempi_ricerca_locale.ipynb```
-Jupyter Notebook che contiene la definizinoe di problemi di ricerca locali, *i.e* Labirinto di Teseo locale, e alcuni esempi di applicazione degli algoritmi di ricerca locale.
+Jupyter Notebook che contiene la definizione di problemi di ricerca locali, *i.e* Labirinto di Teseo locale, e alcuni esempi di applicazione degli algoritmi di ricerca locale.
