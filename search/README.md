@@ -1,21 +1,8 @@
-# IIA-python
-Algoritmi e applicazioni di IA relative al corso "Introduzione all'Intelligenza Artificiale", Corso di Laurea in Informatica, Università di Pisa.
-
-Contiene l'implementazione di algoritmi di ricerca globale e locale, aggiornata alla quarta edizione dell'AIMA, con esempi di utilizzo su problemi concreti.
+# Algoritmi di ricerca
+Questa cartella contiene l'implementazione di algoritmi di ricerca globale e locale, aggiornata alla quarta edizione dell'AIMA, con esempi di utilizzo su problemi concreti.
 
 ## Struttura
 
-Il repository è strutturato come segue:
-
-```
-├── src/
-│   ├── utils.py                 # Classi di supporto per nodi e problemi
-│   ├── search.py                # Implementazione degli algoritmi di ricerca
-│   └── local_search.py          # Implementazione degli algoritmi di ricerca locale
-├── esempi_ricerca.ipynb         # Notebook con esempi di utilizzo degli algoritmi di ricerca
-├── esempi_ricerca_locale.ipynb  # Notebook con esempi di utilizzo degli algoritmi di ricerca locale
-└── README.md                    # Questo file
-```
 
 ### ```src/utils.py```
 Contiene le classi fondamentali per rappresentare un problema di ricerca:
