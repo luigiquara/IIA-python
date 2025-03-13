@@ -1,4 +1,4 @@
-# Algoritmi di ricerca
+# Algoritmi di apprendimento automatico
 Questa cartella contiene l'implementazione di algoritmi di apprendimento automatico, con esempi di utilizzo su problemi concreti.
 
 ## Struttura
