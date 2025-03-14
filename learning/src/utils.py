@@ -48,6 +48,13 @@ def mean_boolean_error(X, Y):
 
 identity = lambda x: x
 
+def shuffled(iterable):
+    '''Permutazione casuale di una copia dell'oggetto in input'''
+
+    items = list(iterable)
+    random.shuffle(items)
+    return items
+
 def argmax_random_tie(seq, key=identity):
     '''
     Restituisce un elemento con il valore più alto della funzione specificata.
