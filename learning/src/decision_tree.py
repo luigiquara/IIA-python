@@ -1,6 +1,6 @@
 from utils import argmax_random_tie
 
-class DecisionTreeLearner(dataset):
+class DecisionTreeLearner():
     '''
     Addestra un albero di decisione.
        In input richiede:
