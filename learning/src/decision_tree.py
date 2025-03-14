@@ -1,4 +1,4 @@
-from utils import argmax_random_tie
+from utils import argmax_random_tie, normalize
 
 class DecisionTreeLearner():
     '''
