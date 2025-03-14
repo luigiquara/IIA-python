@@ -1,5 +1,6 @@
 import os
 import random
+from statistics import mean
 
 def open_data(name, mode='r'):
     aima_root = os.path.join(os.path.dirname(__file__), '..')
