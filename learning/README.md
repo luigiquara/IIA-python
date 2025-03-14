@@ -38,5 +38,15 @@ Contiene l'implementazione della classe Dataset e del metodo di cross validation
 Contiene l'implementazione del modello lineare visto a lezione:
 + ```LinearModel```: implementazione del modello lineare. Prevede un metodo ```fit()``` per l'addestramento del modello, e un metodo ```predict()``` per calcolare l'output del modello addestrato
 
+### ```src/decision_tree.py```
+Contiene l'implementazione del modello dell'albero decisionale:
++ ```DecisionLeaf```: implementazione di una foglia in un albero decisionale. Utilizzato per contenere un possibile risultato
++ ```DecisionFork```: implementazione di una biforcazione in un albero decisionale. Esegue la scelta del ramo da prendere in base all'esempio in input
++ ```DecisionTreeLearner```: implementazione di un albero decisionale. L'oggetto costruisce l'albero addestrato e prevede un metodo ```predict()``` per calcolare l'output del modello
+
+### ```src/knn.py```
+Contiene l'implementazione dell'algoritmo *k-Nearest Neighbors*:
++ ```NearestNeighborLearner```: implementazione del modello *KNN*. Prevede un metodo ```predict()``` per determinare l'output del modello, calcolato in base ad un voto di maggioranza tra i *k* elementi più vicini  
+
 ### ```esempi_modello_lineare.ipynb```
 Jupyter Notebook che contiene la definizione di alcuni dataset di esempio, e alcune dimostrazioni di utilizzo del modello lineare.
