@@ -1,3 +1,4 @@
+import collections
 import os
 import random
 from statistics import mean
