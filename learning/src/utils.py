@@ -73,3 +73,15 @@ def mode(data):
 
     [(item, count)] = collections.Counter(data).most_common(1)
     return item
+
+def normalize(dist):
+    '''Ogni numero viene moltiplicato per una costante, così che la somma sia 1.0'''
+
+    if isinstance(dist, dict):
+        total = sum(dist.values())
+        for key in dist:
+            dist[key] = dist[key] / total
+            assert 0 <= dist[key] <= 1  # le probabilità devono essere tra 0 e 1 
+        return dist
+    total = sum(dist)
+    return [(n / total) for n in dist]
