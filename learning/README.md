@@ -48,5 +48,5 @@ Contiene l'implementazione del modello dell'albero decisionale:
 Contiene l'implementazione dell'algoritmo *k-Nearest Neighbors*:
 + ```NearestNeighborLearner```: implementazione del modello *KNN*. Prevede un metodo ```predict()``` per determinare l'output del modello, calcolato in base ad un voto di maggioranza tra i *k* elementi più vicini  
 
-### ```esempi_modello_lineare.ipynb```
-Jupyter Notebook che contiene la definizione di alcuni dataset di esempio, e alcune dimostrazioni di utilizzo del modello lineare.
+### ```esempi_apprendimento_automatico.ipynb```
+Jupyter Notebook che contiene la definizione di alcuni dataset di esempio, e alcune dimostrazioni di utilizzo del modello lineare, dell'albero decisionale e dell'algoritmo KNN.
