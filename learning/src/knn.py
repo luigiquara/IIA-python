@@ -1,5 +1,7 @@
 import heapq
 
+from utils import mode
+
 class NearestNeighborLearner:
     '''
     Implementazione dell'algoritmo k-NearestNeighbor.
