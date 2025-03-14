@@ -1,4 +1,5 @@
 import os
+import random
 
 def open_data(name, mode='r'):
     aima_root = os.path.join(os.path.dirname(__file__), '..')
