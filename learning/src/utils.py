@@ -44,3 +44,11 @@ def unique(seq):
 
 def mean_boolean_error(X, Y):
     return mean(x != y for x, y in zip(X, Y))
+
+def argmax_random_tie(seq, key=identity):
+    '''
+    Restituisce un elemento con il valore più alto della funzione specificata.
+    Risolve le parità in modo casuale
+    '''
+
+    return max(shuffled(seq), key=key)
