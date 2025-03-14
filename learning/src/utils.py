@@ -85,3 +85,15 @@ def normalize(dist):
         return dist
     total = sum(dist)
     return [(n / total) for n in dist]
+
+def remove_all(item, seq):
+    '''Restituisce una copia della sequenza in input, dopo aver rimosso tutte le occorrenze di item'''
+
+    if isinstance(seq, str):
+        return seq.replace(item, '')
+    elif isinstance(seq, set):
+        rest = seq.copy()
+        rest.remove(item)
+        return rest
+    else:
+        return [x for x in seq if x != item]
